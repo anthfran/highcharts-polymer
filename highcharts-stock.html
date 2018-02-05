@@ -1,0 +1,42 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<script src="highchartsjs/highstock.js"></script>
+<script src="highchartsjs/exporting.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+<dom-module id="highcharts-stock">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    </style>
+    <div id="container" style="height: 400px; min-width: 310px"></div>
+  </template>
+
+  <script>
+  /**
+  * `highcharts-stock`
+  * Polymer wrapper for highcharts stock graph
+  *
+  * @customElement
+  * @polymer
+  * @demo demo/index.html
+  */
+  class HighchartsStock extends Polymer.Element {
+    static get is() { return 'highcharts-stock'; }
+    static get properties() {
+      return {
+        prop1: {
+          type: String,
+          value: 'highcharts-stock'
+        }
+      };
+    }
+    connectedCallback() {
+      super.connectedCallback();
+    }
+
+    window.customElements.define(HighchartsStock.is, HighchartsStock);
+  </script>
+</dom-module>
