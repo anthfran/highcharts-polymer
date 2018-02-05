@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer-element.html">
-<script src="highchartsjs/highstock.js"></script>
-<script src="highchartsjs/exporting.js"></script>
+<script src="./highchartsjs/highstock.js"></script>
+<script src="./highchartsjs/exporting.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
 
@@ -11,7 +11,7 @@
       display: block;
     }
     </style>
-    <div id="container" style="height: 400px; min-width: 310px"></div>
+      <div id="container" style="height: 400px; min-width: 310px"></div>
   </template>
 
   <script>
@@ -27,15 +27,45 @@
     static get is() { return 'highcharts-stock'; }
     static get properties() {
       return {
-        prop1: {
-          type: String,
-          value: 'highcharts-stock'
+        data: {
+          type: Array,
+          observer: '_drawChart'
         }
       };
     }
+    _drawChart(data) {
+      console.log(this.$.container);
+      // Create the chart
+      Highcharts.chart({
+        chart: {
+          renderTo: this.$.container
+        },
+
+        rangeSelector: {
+          selected: 1
+        },
+
+        title: {
+          text: 'AAPL Stock Price'
+        },
+
+        series: [{
+          name: 'AAPL',
+          data: data,
+          tooltip: {
+            valueDecimals: 2
+          }
+        }]
+      });
+    }
     connectedCallback() {
       super.connectedCallback();
+      let element = this;
+      $.getJSON('./aapl-c.json', function (data) {
+        element.set('data', data);
+      });
     }
+  }
 
     window.customElements.define(HighchartsStock.is, HighchartsStock);
   </script>
