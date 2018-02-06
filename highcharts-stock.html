@@ -63,21 +63,19 @@
           type: String
         },
         series: {
-          type: String
+          type: String,
+          value: ''
         }
       };
     }
     _drawChart(data) {
-      console.log(data);
       Highcharts.stockChart({
         chart: {
           renderTo: this.$.container
         },
-
         rangeSelector: {
           selected: 1
         },
-
         title: {
           text: this.title
         },
@@ -86,7 +84,7 @@
         },
 
         series: [{
-          name: 'AAPL',
+          name: this.series,
           data: data,
           tooltip: {
             valueDecimals: 2
