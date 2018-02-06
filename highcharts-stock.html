@@ -9,9 +9,17 @@
     <style>
     :host {
       display: block;
+      --container-width: 100%;
+      --container-height: 400px;
+    }
+    .container {
+      min-height: 400px;
+      min-width: 310px;
+      width: var(--container-width);
+      height: var(--container-height);
     }
     </style>
-      <div id="container" style="height: 400px; min-width: 310px"></div>
+      <div id="container" class="container"></div>
   </template>
 
   <script>
@@ -28,42 +36,66 @@
     static get properties() {
       return {
         data: {
-          type: Array,
+          type: String,
           observer: '_drawChart'
+        },
+        height: {
+          type: String,
+          observer: '_cssHeightSet'
+        },
+        width: {
+          type: String,
+          observer: '_cssWidthSet'
+        },
+        title: {
+          type: String
+        },
+        subtitle: {
+          type: String
+        },
+        series: {
+          type: String
         }
       };
     }
     _drawChart(data) {
-      console.log(this.$.container);
-      // Create the chart
-      Highcharts.stockChart({
-        chart: {
-          renderTo: this.$.container
-        },
+      const highchartsStockElement = this;
+      $.getJSON(data, function (res) {
+        Highcharts.stockChart({
+          chart: {
+            renderTo: highchartsStockElement.$.container
+          },
 
-        rangeSelector: {
-          selected: 1
-        },
+          rangeSelector: {
+            selected: 1
+          },
 
-        title: {
-          text: 'AAPL Stock Price'
-        },
+          title: {
+            text: this.title
+          },
+          subtitle: {
+            text: this.subtitle
+          },
 
-        series: [{
-          name: 'AAPL',
-          data: data,
-          tooltip: {
-            valueDecimals: 2
-          }
-        }]
+          series: [{
+            name: 'AAPL',
+            data: res,
+            tooltip: {
+              valueDecimals: 2
+            }
+          }]
+        });
       });
+    }
+    _cssHeightSet(height) {
+      this.updateStyles({'--container-height': height});
+    }
+    _cssWidthSet(width) {
+      this.updateStyles({'--container-width': width});
+
     }
     connectedCallback() {
       super.connectedCallback();
-      let element = this;
-      $.getJSON('./aapl-c.json', function (data) {
-        element.set('data', data);
-      });
     }
   }
 

@@ -3,7 +3,8 @@
   "description": "Polymer wrapper for highcharts stock graph",
   "main": "highcharts-stock.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0"
+    "polymer": "Polymer/polymer#^2.0.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^2.1.0"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
