@@ -2,7 +2,7 @@
 <script src="./highchartsjs/highstock.js"></script>
 <script src="./highchartsjs/exporting.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
+<link rel="import" href="../iron-ajax/iron-ajax.html">
 
 <dom-module id="highcharts-stock">
   <template>
@@ -19,7 +19,13 @@
       height: var(--container-height);
     }
     </style>
-      <div id="container" class="container"></div>
+    <iron-ajax
+      auto
+      url="[[dataurl]]"
+      last-response="{{data}}"
+      debounce-duration="300">
+    </iron-ajax>
+    <div id="container" class="container"></div>
   </template>
 
   <script>
@@ -36,8 +42,11 @@
     static get properties() {
       return {
         data: {
-          type: String,
+          type: Array,
           observer: '_drawChart'
+        },
+        dataurl: {
+          type: String
         },
         height: {
           type: String,
@@ -59,32 +68,30 @@
       };
     }
     _drawChart(data) {
-      const highchartsStockElement = this;
-      $.getJSON(data, function (res) {
-        Highcharts.stockChart({
-          chart: {
-            renderTo: highchartsStockElement.$.container
-          },
+      console.log(data);
+      Highcharts.stockChart({
+        chart: {
+          renderTo: this.$.container
+        },
 
-          rangeSelector: {
-            selected: 1
-          },
+        rangeSelector: {
+          selected: 1
+        },
 
-          title: {
-            text: this.title
-          },
-          subtitle: {
-            text: this.subtitle
-          },
+        title: {
+          text: this.title
+        },
+        subtitle: {
+          text: this.subtitle
+        },
 
-          series: [{
-            name: 'AAPL',
-            data: res,
-            tooltip: {
-              valueDecimals: 2
-            }
-          }]
-        });
+        series: [{
+          name: 'AAPL',
+          data: data,
+          tooltip: {
+            valueDecimals: 2
+          }
+        }]
       });
     }
     _cssHeightSet(height) {
@@ -99,6 +106,6 @@
     }
   }
 
-    window.customElements.define(HighchartsStock.is, HighchartsStock);
+  window.customElements.define(HighchartsStock.is, HighchartsStock);
   </script>
 </dom-module>
