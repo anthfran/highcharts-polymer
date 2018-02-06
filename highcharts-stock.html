@@ -1,4 +1,4 @@
-<link rel="import" href="highcharts-options.html">
+<link rel="import" href="highcharts-chart.html">
 
 <dom-module id="highcharts-stock">
 
@@ -11,17 +11,38 @@
   * @polymer
   * @demo demo/index.html
   */
-  class HighchartsStock extends HighchartsOptions {
+  class HighchartsStock extends HighchartsChart {
   static get is() { return 'highcharts-stock'; }
 
   static get properties() {
     return {
     };
   }
-  connectedCallback() {
-  super.connectedCallback();
-  // …
-}
+  _drawChart(data) {
+    console.log(data);
+    Highcharts.stockChart({
+      chart: {
+        renderTo: this.$.container
+      },
+      rangeSelector: {
+        selected: 1
+      },
+      title: {
+        text: this.title
+      },
+      subtitle: {
+        text: this.subtitle
+      },
+
+      series: [{
+        name: this.seriesName,
+        data: data,
+        tooltip: {
+          valueDecimals: this.seriesDecimals
+        }
+      }]
+    });
+  }
 
 };
 

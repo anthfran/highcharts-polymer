@@ -3,7 +3,7 @@
 <script src="./highchartsjs/exporting.js"></script>
 <link rel="import" href="../iron-ajax/iron-ajax.html">
 
-<dom-module id="highcharts-options">
+<dom-module id="highcharts-chart">
   <template>
     <style>
     :host {
@@ -20,7 +20,7 @@
     </style>
     <iron-ajax
       auto
-      url="[[dataurl]]"
+      url="[[dataUrl]]"
       last-response="{{data}}"
       debounce-duration="300">
     </iron-ajax>
@@ -29,22 +29,22 @@
 
   <script>
   /**
-  * `highcharts-stock`
-  * Polymer wrapper for highcharts stock graph
+  * `highcharts-chart`
+  * Polymer wrapper for highcharts
   *
   * @customElement
   * @polymer
   * @demo demo/index.html
   */
-  class HighchartsOptions extends Polymer.Element {
-    static get is() { return 'highcharts-options'; }
+  class HighchartsChart extends Polymer.Element {
+    static get is() { return 'highcharts-chart'; }
     static get properties() {
       return {
         data: {
           type: Array,
           observer: '_drawChart'
         },
-        dataurl: {
+        dataUrl: {
           type: String
         },
         height: {
@@ -61,11 +61,10 @@
         subtitle: {
           type: String
         },
-        seriesname: {
-          type: String,
-          value: ''
+        seriesName: {
+          type: String
         },
-        seriesdecimals: {
+        seriesDecimals: {
           type: Number,
           value: 2
         }
@@ -73,7 +72,7 @@
     }
     _drawChart(data) {
       console.log(data);
-      Highcharts.stockChart({
+      Highcharts.chart({
         chart: {
           renderTo: this.$.container
         },
@@ -88,10 +87,10 @@
         },
 
         series: [{
-          name: this.seriesname,
+          name: this.seriesName,
           data: data,
           tooltip: {
-            valueDecimals: this.seriesdecimals
+            valueDecimals: this.seriesDecimals
           }
         }]
       });
@@ -103,6 +102,6 @@
     }
   }
 
-  customElements.define(HighchartsOptions.is, HighchartsOptions);
+  customElements.define(HighchartsChart.is, HighchartsChart);
   </script>
 </dom-module>
