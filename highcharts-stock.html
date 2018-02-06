@@ -62,9 +62,13 @@
         subtitle: {
           type: String
         },
-        series: {
+        seriesname: {
           type: String,
           value: ''
+        },
+        seriesdecimals: {
+          type: Number,
+          value: 2
         }
       };
     }
@@ -84,21 +88,16 @@
         },
 
         series: [{
-          name: this.series,
+          name: this.seriesname,
           data: data,
           tooltip: {
-            valueDecimals: 2
+            valueDecimals: this.seriesdecimals
           }
         }]
       });
     }
-    _cssHeightSet(height) {
-      this.updateStyles({'--container-height': height});
-    }
-    _cssWidthSet(width) {
-      this.updateStyles({'--container-width': width});
-
-    }
+    _cssHeightSet(height) { this.updateStyles({'--container-height': height}); }
+    _cssWidthSet(width) { this.updateStyles({'--container-width': width}); }
     connectedCallback() {
       super.connectedCallback();
     }
