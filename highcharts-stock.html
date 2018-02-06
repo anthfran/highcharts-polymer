@@ -1,7 +1,6 @@
 <link rel="import" href="highcharts-chart.html">
 
 <dom-module id="highcharts-stock">
-
   <script>
   /**
   * `highcharts-stock`
@@ -13,18 +12,10 @@
   */
   class HighchartsStock extends HighchartsChart {
   static get is() { return 'highcharts-stock'; }
-
-  static get properties() {
-    return {
-    };
-  }
-  _drawChart(options) {
-    Highcharts.stockChart(options);
-  }
-
+  static get properties() { return {}; }
+  _drawChart(options) { Highcharts.stockChart(options); }
+  
 };
-
 customElements.define(HighchartsStock.is, HighchartsStock);
-
   </script>
 </dom-module>
