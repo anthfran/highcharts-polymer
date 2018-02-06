@@ -42,7 +42,7 @@
       return {
         data: {
           type: Array,
-          observer: '_drawChart'
+          observer: '_computeOptions'
         },
         dataUrl: {
           type: String
@@ -67,12 +67,15 @@
         seriesDecimals: {
           type: Number,
           value: 2
+        },
+        _options: {
+          type: Object,
+          observer: '_drawChart'
         }
       };
     }
-    _drawChart(data) {
-      console.log(data);
-      Highcharts.chart({
+    _computeOptions(data) {
+      let options = {
         chart: {
           renderTo: this.$.container
         },
@@ -85,7 +88,6 @@
         subtitle: {
           text: this.subtitle
         },
-
         series: [{
           name: this.seriesName,
           data: data,
@@ -93,7 +95,12 @@
             valueDecimals: this.seriesDecimals
           }
         }]
-      });
+      };
+      console.log(options);
+      this.set('_options', options)
+    }
+    _drawChart(options) {
+      Highcharts.chart(options);
     }
     _cssHeightSet(height) { this.updateStyles({'--container-height': height}); }
     _cssWidthSet(width) { this.updateStyles({'--container-width': width}); }

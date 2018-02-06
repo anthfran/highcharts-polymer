@@ -18,30 +18,8 @@
     return {
     };
   }
-  _drawChart(data) {
-    console.log(data);
-    Highcharts.stockChart({
-      chart: {
-        renderTo: this.$.container
-      },
-      rangeSelector: {
-        selected: 1
-      },
-      title: {
-        text: this.title
-      },
-      subtitle: {
-        text: this.subtitle
-      },
-
-      series: [{
-        name: this.seriesName,
-        data: data,
-        tooltip: {
-          valueDecimals: this.seriesDecimals
-        }
-      }]
-    });
+  _drawChart(options) {
+    Highcharts.stockChart(options);
   }
 
 };
