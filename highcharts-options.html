@@ -1,0 +1,108 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<script src="./highchartsjs/highstock.js"></script>
+<script src="./highchartsjs/exporting.js"></script>
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+
+<dom-module id="highcharts-options">
+  <template>
+    <style>
+    :host {
+      display: block;
+      --container-width: 100%;
+      --container-height: 400px;
+    }
+    .container {
+      min-height: 400px;
+      min-width: 310px;
+      width: var(--container-width);
+      height: var(--container-height);
+    }
+    </style>
+    <iron-ajax
+      auto
+      url="[[dataurl]]"
+      last-response="{{data}}"
+      debounce-duration="300">
+    </iron-ajax>
+    <div id="container" class="container"></div>
+  </template>
+
+  <script>
+  /**
+  * `highcharts-stock`
+  * Polymer wrapper for highcharts stock graph
+  *
+  * @customElement
+  * @polymer
+  * @demo demo/index.html
+  */
+  class HighchartsOptions extends Polymer.Element {
+    static get is() { return 'highcharts-options'; }
+    static get properties() {
+      return {
+        data: {
+          type: Array,
+          observer: '_drawChart'
+        },
+        dataurl: {
+          type: String
+        },
+        height: {
+          type: String,
+          observer: '_cssHeightSet'
+        },
+        width: {
+          type: String,
+          observer: '_cssWidthSet'
+        },
+        title: {
+          type: String
+        },
+        subtitle: {
+          type: String
+        },
+        seriesname: {
+          type: String,
+          value: ''
+        },
+        seriesdecimals: {
+          type: Number,
+          value: 2
+        }
+      };
+    }
+    _drawChart(data) {
+      console.log(data);
+      Highcharts.stockChart({
+        chart: {
+          renderTo: this.$.container
+        },
+        rangeSelector: {
+          selected: 1
+        },
+        title: {
+          text: this.title
+        },
+        subtitle: {
+          text: this.subtitle
+        },
+
+        series: [{
+          name: this.seriesname,
+          data: data,
+          tooltip: {
+            valueDecimals: this.seriesdecimals
+          }
+        }]
+      });
+    }
+    _cssHeightSet(height) { this.updateStyles({'--container-height': height}); }
+    _cssWidthSet(width) { this.updateStyles({'--container-width': width}); }
+    connectedCallback() {
+      super.connectedCallback();
+    }
+  }
+
+  customElements.define(HighchartsOptions.is, HighchartsOptions);
+  </script>
+</dom-module>

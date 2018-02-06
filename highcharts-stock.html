@@ -1,32 +1,6 @@
-<link rel="import" href="../polymer/polymer-element.html">
-<script src="./highchartsjs/highstock.js"></script>
-<script src="./highchartsjs/exporting.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="highcharts-options.html">
 
 <dom-module id="highcharts-stock">
-  <template>
-    <style>
-    :host {
-      display: block;
-      --container-width: 100%;
-      --container-height: 400px;
-    }
-    .container {
-      min-height: 400px;
-      min-width: 310px;
-      width: var(--container-width);
-      height: var(--container-height);
-    }
-    </style>
-    <iron-ajax
-      auto
-      url="[[dataurl]]"
-      last-response="{{data}}"
-      debounce-duration="300">
-    </iron-ajax>
-    <div id="container" class="container"></div>
-  </template>
 
   <script>
   /**
@@ -37,72 +11,21 @@
   * @polymer
   * @demo demo/index.html
   */
-  class HighchartsStock extends Polymer.Element {
-    static get is() { return 'highcharts-stock'; }
-    static get properties() {
-      return {
-        data: {
-          type: Array,
-          observer: '_drawChart'
-        },
-        dataurl: {
-          type: String
-        },
-        height: {
-          type: String,
-          observer: '_cssHeightSet'
-        },
-        width: {
-          type: String,
-          observer: '_cssWidthSet'
-        },
-        title: {
-          type: String
-        },
-        subtitle: {
-          type: String
-        },
-        seriesname: {
-          type: String,
-          value: ''
-        },
-        seriesdecimals: {
-          type: Number,
-          value: 2
-        }
-      };
-    }
-    _drawChart(data) {
-      Highcharts.stockChart({
-        chart: {
-          renderTo: this.$.container
-        },
-        rangeSelector: {
-          selected: 1
-        },
-        title: {
-          text: this.title
-        },
-        subtitle: {
-          text: this.subtitle
-        },
+  class HighchartsStock extends HighchartsOptions {
+  static get is() { return 'highcharts-stock'; }
 
-        series: [{
-          name: this.seriesname,
-          data: data,
-          tooltip: {
-            valueDecimals: this.seriesdecimals
-          }
-        }]
-      });
-    }
-    _cssHeightSet(height) { this.updateStyles({'--container-height': height}); }
-    _cssWidthSet(width) { this.updateStyles({'--container-width': width}); }
-    connectedCallback() {
-      super.connectedCallback();
-    }
+  static get properties() {
+    return {
+    };
   }
+  connectedCallback() {
+  super.connectedCallback();
+  // …
+}
 
-  window.customElements.define(HighchartsStock.is, HighchartsStock);
+};
+
+customElements.define(HighchartsStock.is, HighchartsStock);
+
   </script>
 </dom-module>

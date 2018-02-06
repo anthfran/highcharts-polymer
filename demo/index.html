@@ -13,6 +13,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
     <link rel="import" href="../highcharts-stock.html">
+    <link rel="import" href="../highcharts-options.html">
 
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
@@ -26,6 +27,20 @@
       <demo-snippet>
         <template>
           <highcharts-stock
+            dataurl="./aapl-c.json"
+            title="Apple Inc."
+            subtitle="Stock Price"
+            seriesname="AAPL"
+            >
+          </highcharts-stock>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Basic highcharts-stock demo</h3>
+      <demo-snippet>
+        <template>
+          <highcharts-options
             dataurl="./aapl-c.json"
             title="Apple Inc."
             subtitle="Stock Price"
