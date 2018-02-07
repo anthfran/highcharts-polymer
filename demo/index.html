@@ -23,6 +23,20 @@
   </head>
   <body>
     <div class="vertical-section-container centered">
+      <h3>Basic highcharts demo</h3>
+      <demo-snippet>
+        <template>
+          <highcharts-chart
+            data-url="./chart.json"
+            title="Solar Employment Growth by Sector, 2010-2016"
+            subtitle="Source: thesolarfoundation.com"
+            y-axis="Number of Employees"
+            >
+          </highcharts-chart>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
       <h3>Basic highcharts-stock demo</h3>
       <demo-snippet>
         <template>
@@ -36,19 +50,6 @@
         </template>
       </demo-snippet>
     </div>
-    <div class="vertical-section-container centered">
-      <h3>Basic highcharts-stock demo</h3>
-      <demo-snippet>
-        <template>
-          <highcharts-chart
-            data-url="./aapl-c.json"
-            title="Apple Inc."
-            subtitle="Stock Price"
-            series-name="AAPL"
-            >
-          </highcharts-chart>
-        </template>
-      </demo-snippet>
-    </div>
+
   </body>
 </html>

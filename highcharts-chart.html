@@ -12,8 +12,7 @@
       --container-height: 400px;
     }
     .container {
-      min-height: 400px;
-      min-width: 310px;
+      min-height: 300px;
       width: var(--container-width);
       height: var(--container-height);
     }
@@ -62,9 +61,10 @@
           type: String
         },
         seriesName: {
-          type: String
+          type: String,
+          value: ''
         },
-        seriesDecimals: {
+        valueDecimals: {
           type: Number,
           value: 2
         },
@@ -75,6 +75,19 @@
       };
     }
     _computeOptions(data) {
+      let series = [];
+      if (this.seriesName != '') {
+        series[0] = {
+          data: data,
+          name: this.seriesName,
+          tooltip: {
+            valueDecimals: this.valueDecimals
+          }
+        }
+        console.log(series);
+      } else {
+        series=data;
+      }
       let options = {
         chart: {
           renderTo: this.$.container
@@ -88,27 +101,21 @@
         subtitle: {
           text: this.subtitle
         },
-        series: [{
-          name: this.seriesName,
-          data: data,
-          tooltip: {
-            valueDecimals: this.seriesDecimals
-          }
-        }]
+        series: series
       };
-      console.log(options);
       this.set('_options', options)
     }
+
     _drawChart(options) {
       Highcharts.chart(options);
     }
+
     _cssHeightSet(height) { this.updateStyles({'--container-height': height}); }
     _cssWidthSet(width) { this.updateStyles({'--container-width': width}); }
     connectedCallback() {
       super.connectedCallback();
     }
   }
-
   customElements.define(HighchartsChart.is, HighchartsChart);
   </script>
 </dom-module>
