@@ -20,7 +20,7 @@
     <iron-ajax
       auto
       url="[[dataUrl]]"
-      last-response="{{data}}"
+      last-response="{{series}}"
       debounce-duration="300">
     </iron-ajax>
     <div id="container" class="container"></div>
@@ -39,10 +39,6 @@
     static get is() { return 'highcharts-chart'; }
     static get properties() {
       return {
-        data: {
-          type: Array,
-          observer: '_computeOptions'
-        },
         dataUrl: {
           type: String
         },
@@ -60,9 +56,9 @@
         subtitle: {
           type: String
         },
-        seriesName: {
-          type: String,
-          value: ''
+        series: {
+          type: Array,
+          observer: '_computeOptions'
         },
         valueDecimals: {
           type: Number,
@@ -74,20 +70,7 @@
         }
       };
     }
-    _computeOptions(data) {
-      let series = [];
-      if (this.seriesName != '') {
-        series[0] = {
-          data: data,
-          name: this.seriesName,
-          tooltip: {
-            valueDecimals: this.valueDecimals
-          }
-        }
-        console.log(series);
-      } else {
-        series=data;
-      }
+    _computeOptions(series) {
       let options = {
         chart: {
           renderTo: this.$.container
