@@ -6,7 +6,7 @@ Display an Instagram image post in your Polymer website
 
 ## Demo
 
-https://www.webcomponents.org/element/anthfran/instagram-post/demo/demo/index.html
+https://www.webcomponents.org/element/anthfran/highcharts-polymer/demo/demo/index.html
 
 ## Installation
 
