@@ -1,7 +1,7 @@
 {
-  "name": "highcharts-stock",
-  "description": "Polymer wrapper for highcharts stock graph",
-  "main": "highcharts-stock.html",
+  "name": "highcharts-polymer",
+  "description": "Polymer wrapper for highcharts",
+  "main": "highcharts-chart.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "iron-ajax": "PolymerElements/iron-ajax#^2.1.0",
